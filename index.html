@@ -3,11 +3,29 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<input type="text" id="username">
-	<input type="text" id="token">
+	<h3>Search Gist</h3>
+	<label for="username">Username: </label><br>
+	<input type="text" id="username"><br>
+	<label for="token">Token: </label><br>
+	<input type="text" id="token"><br>
 
 	<a href="#" id="search">Try me</a>
+	<br>
+	<br>
 
+	<h3>Create Gist</h3>
+
+	<form id="create-gist-form">
+		<label for="new-gist-file-name">File Name: </label><br>
+		<input type="text" id="new-gist-file-name"><br>
+		<label for="new-gist-content">Content: </label><br>
+		<input type="text" id="new-gist-content"><br>
+		<label for="new-gist-description">Description: </label><br>
+		<input type="text" id="new-gist-description"><br>
+		<label for="new-gist-token">Token: </label><br>
+		<input type="text" id="new-gist-token"><br>
+		<input type="submit" name="Create Gist">
+	</form>
 	<div id="gist-list">
 		
 	</div>

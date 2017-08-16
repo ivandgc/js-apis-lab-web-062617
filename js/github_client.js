@@ -1,6 +1,27 @@
 //define functions here
 var createGist = function(file_name, content, description, token){
 
+	var jsonData = {
+				  "description": description,
+				  "public": true,
+				  "files": {
+				    [file_name]: {
+				      "content": content
+				    }
+				  }
+				}
+
+	$.ajax({
+		url: "https://api.github.com/gists",
+		type: "POST",
+		headers: {
+			Authorization: "token " + token
+		},
+		data: JSON.stringify(jsonData),
+		success: function (data){console.log(data)},
+		error: function(data){console.log(data)}
+	}).done(function (data){myGists(data.owner.login, token)})
+
 };
 
 var myGists = function (username, token){
@@ -19,7 +40,15 @@ var myGists = function (username, token){
 };
 
 var bindCreateButton = function() {
-  // call functions here
+  document.getElementById("create-gist-form").addEventListener("submit", function (){
+  		event.preventDefault()
+  		var fileName = document.getElementById("new-gist-file-name").value
+  		var content = document.getElementById("new-gist-content").value
+  		var description = document.getElementById("new-gist-description").value
+  		var token = document.getElementById("new-gist-token").value
+
+  		createGist(fileName, content, description, token)
+  })
 };
 
 
@@ -29,7 +58,7 @@ function displayGists(data){
 		if (!gist.description) {
 			gist.description = "No description"
 		}
-		
+
 		return "<li><a href='" + gist.html_url +"'>" +  gist.description + "</a></li>"
 		
 
@@ -49,7 +78,9 @@ $(document).ready(function(){
 
 		myGists(username, token)
 	})
+
+	bindCreateButton()
 });
 
 
-//bc7fed1e90d825e47cd830fcb78d0de636d967ac
+//17b3c047335e6ad5ffd39593ef2ee13211570fbc
